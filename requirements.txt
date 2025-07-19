@@ -1,0 +1,11 @@
+flask
+werkzeug
+scipy
+scikit-image
+numpy
+Pillow
+requests
+python-dotenv
+sentence-transformers
+openai
+streamlit 
