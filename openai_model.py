@@ -3,7 +3,8 @@ from dotenv import load_dotenv
 load_dotenv()
 from openai import OpenAI
 
-
+load_dotenv()
+openai_api_key = os.getenv('OPENAI_API_KEY')
 
 client = OpenAI(api_key="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")
 # api_key = os.getenv("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")
@@ -52,3 +53,5 @@ def extract_similarity_value(similarity_string):
 
 # paraphrased = compare_text_similarity(text1, text2)
 # print(f"{paraphrased}")
+
+api_key = os.getenv("API_KEY")
