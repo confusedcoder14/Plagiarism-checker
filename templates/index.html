@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plagiarism Detector For Content</title>
+    <style>
+              /* Reset default styles */
+              * {
+                  margin: 0;
+                  padding: 0;
+                  box-sizing: border-box;
+                  font-family: 'Arial', sans-serif;
+              }
+
+              /* Body styling */
+              body {
+                  background-color: #f5f5f5;
+                  color: #333;
+                  line-height: 1.6;
+              }
+
+              /* Header styling */
+              header {
+                  background-color: #1a2526;
+                  padding: 15px 30px;
+                  display: flex;
+                  width: 100%;
+                  justify-content: space-between;
+                  align-items: center;
+                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                  position: fixed;
+              }
+
+              header .logo {
+                  font-size: 24px;
+                  font-weight: bold;
+                  color: #fff;
+              }
+
+              header nav ul {
+                  list-style: none;
+                  display: flex;
+                  gap: 20px;
+              }
+
+              header nav ul li a {
+                  color: #fff;
+                  text-decoration: none;
+                  font-size: 16px;
+                  transition: color 0.3s ease;
+              }
+
+              header nav ul li a:hover {
+                  color: #f5a623;
+              }
+
+              header .buttons a {
+                  padding: 8px 20px;
+                  border-radius: 5px;
+                  text-decoration: none;
+                  font-size: 16px;
+                  transition: background-color 0.3s ease, color 0.3s ease;
+              }
+
+              header .buttons .login {
+                  background-color: transparent;
+                  color: #fff;
+                  border: 1px solid #fff;
+                  margin-right: 10px;
+              }
+
+              header .buttons .login:hover {
+                  background-color: #fff;
+                  color: #1a2526;
+              }
+
+              header .buttons .order {
+                  background-color: #f5a623;
+                  color: #fff;
+                  border: none;
+              }
+
+              header .buttons .order:hover {
+                  background-color: #e69520;
+              }
+              /* Dropdown styling */
+      .dropdowns {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-btn {
+        background-color: transparent;
+        color: #fff;
+        font-size: 16px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border: 1px solid #fff;
+      }
+
+      .dropdown-btn:hover {
+        background-color: #fff;
+        color: #1a2526;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #1a2526;
+        list-style: none;
+        min-width: 150px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+
+      .dropdown-menu.active {
+        display: block;
+      }
+
+      .dropdown-menu li {
+        padding: 0;
+      }
+
+      .dropdown-menu li a {
+        display: block;
+        padding: 10px 20px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      .dropdown-menu li a:hover {
+        background-color: #f5a623;
+        color: #1a2526;
+      }
+
+              /* Main section styling */
+              main {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  min-height: calc(100vh - 70px);
+                  padding: 40px;
+                  gap: 50px;
+              }
+
+              .left-section {
+                  max-width: 400px;
+                  margin-right: 50px;
+              }
+
+
+              .left-section h1 {
+                  color: #1a2526;
+                  font-family: Overlock, sans-serif;
+                  font-size: 26px;
+                  line-height: 1.3;
+                  margin-bottom: 20px;
+                  text-align: center;
+              }
+
+              .left-section p {
+                  font-size: 18px;
+                  color: #666;
+                  margin-bottom: 20px;
+              }
+
+              .left-section ul {
+                  list-style: none;
+              }
+
+              .left-section ul li {
+                  font-size: 16px;
+                  color: #666;
+                  margin-bottom: 10px;
+                  position: relative;
+                  padding-left: 25px;
+              }
+
+              .left-section ul li::before {
+                  content: '✔';
+                  color: #6b48ff;
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+              }
+
+              /* Right section styling */
+              .right-section {
+                  background-color: #fff;
+                  padding: 30px;
+                  border-radius: 10px;
+                  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                  text-align: center;
+                  max-width: 400px;
+              }
+
+              .right-section h2 {
+                  font-size: 24px;
+                  color: #1a2526;
+                  margin-bottom: 20px;
+              }
+
+              .right-section img {
+                  width: 100px;
+                  margin-bottom: 20px;
+              }
+
+              .right-section .file-upload {
+                  border: 2px dashed #ccc;
+                  padding: 15px;
+                  border-radius: 5px;
+                  margin-bottom: 20px;
+                  cursor: pointer;
+                  transition: border-color 0.3s ease;
+              }
+
+              .right-section .file-upload:hover {
+                  border-color: #6b48ff;
+              }
+
+              .right-section .file-upload p {
+                  font-size: 14px;
+                  color: #666;
+              }
+
+              .right-section .dropdown {
+                  position: relative;
+                  margin-bottom: 20px;
+              }
+
+              .right-section .dropdown select {
+                  width: 100%;
+                  padding: 10px;
+                  border: 1px solid #ccc;
+                  border-radius: 5px;
+                  font-size: 16px;
+                  appearance: none;
+                  background-color: #fff;
+                  cursor: pointer;
+                  transition: border-color 0.3s ease;
+              }
+
+              .right-section .dropdown select:hover,
+              .right-section .dropdown select:focus {
+                  border-color: #6b48ff;
+                  outline: none;
+              }
+
+              .right-section .dropdown::after {
+                  content: '▼';
+                  position: absolute;
+                  right: 10px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  color: #666;
+                  pointer-events: none;
+              }
+
+              .right-section .checkbox {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+                  margin-bottom: 20px;
+              }
+
+              .right-section .checkbox input {
+                  cursor: pointer;
+              }
+
+              .right-section .checkbox label {
+                  font-size: 14px;
+                  color: #666;
+                  cursor: pointer;
+              }
+
+              .right-section .checkbox label a {
+                  color: #6b48ff;
+                  text-decoration: none;
+              }
+
+              .right-section .checkbox label a:hover {
+                  text-decoration: underline;
+              }
+
+              .right-section .detect-btn {
+                  background-color: #6b48ff;
+                  color: #fff;
+                  padding: 12px 30px;
+                  border: none;
+                  border-radius: 5px;
+                  font-size: 16px;
+                  cursor: pointer;
+                  transition: background-color 0.3s ease;
+              }
+
+              .right-section .detect-btn:hover {
+                  background-color: #5a3de6;
+              }
+
+              /* Promo Banner Section */
+      .promo-banner {
+        background-color: #1a2526;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        gap: 50px;
+        color: #fff;
+      }
+
+      .banner-content {
+        max-width: 500px;
+      }
+
+      .banner-content h2 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .banner-content h2 span {
+        color: #f5a623;
+      }
+
+      .banner-content p {
+        font-size: 18px;
+        margin-bottom: 20px;
+        opacity: 0.9;
+      }
+
+      .start-btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #f5a623;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease;
+      }
+
+      .start-btn:hover {
+        background-color: #e69520;
+      }
+
+      .banner-image img {
+        max-width: 300px;
+        height: auto;
+      }
+
+              /* Footer note */
+              footer {
+                  text-align: center;
+                  padding: 10px;
+                  font-size: 12px;
+                  color: #999;
+                  
+              }
+
+              footer a {
+                  color: #6b48ff;
+                  text-decoration: none;
+              }
+
+              footer a:hover {
+                  text-decoration: underline;
+              }
+
+              /* Responsive design */
+              @media (max-width: 768px) {
+                  main {
+                      flex-direction: column;
+                      padding: 20px;
+                      text-align: center;
+                  }
+
+                  .left-section h1 {
+                      font-size: 36px;
+                  }
+
+                  .left-section ul {
+                      text-align: left;
+                      display: inline-block;
+                  }
+
+                  .right-section {
+                      width: 100%;
+                  }
+                  /* Loading state for the button */
+      .detect-btn:disabled {
+          background-color: #a094f7;
+          cursor: not-allowed;
+          position: relative;
+      }
+
+      .detect-btn:disabled::after {
+          content: '';
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          border: 2px solid #fff;
+          border-radius: 50%;
+          border-top-color: transparent;
+          animation: spin 1s linear infinite;
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+      }
+
+      /* Spinner animation */
+      @keyframes spin {
+          0% { transform: translateY(-50%) rotate(0deg); }
+          100% { transform: translateY(-50%) rotate(360deg); }
+      }
+
+      .promo-banner {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .banner-image img {
+          max-width: 200px;
+        }
+
+      .dropdown-btn {
+          font-size: 14px;
+          padding: 8px 15px;
+          background-color: transparent;
+          color: #fff;
+          border: 1px solid #fff;
+        }
+
+        .dropdown-menu {
+          min-width: 120px;
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Contentguard🤖</div>
+      <nav>
+            <ul>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Writing Tools</a></li>
+                <li><a href="#">How It Works</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+      <div class="buttons">
+        <a href="login" class="login">Log In</a>
+        <a href="order" class="order">Subscribe</a>
+      </div>
+    </header>
+    <main>
+      <div class="left-section">
+        <h1>Web-Based Free Plagiarism Checker</h1>
+        <p>
+          Receive a Highly Accurate Report with Our Advanced AI-Powered Writing
+          Assistant. Easily detect plagiarism across all popular file formats.
+          Our intelligent tool offers:
+        </p>
+        <ul>
+          <li>Deep Search Capabilities</li>
+          <li>Real-Time Plagiarism Detection</li>
+          <li>Secure and Private Data Handling</li>
+        </ul>
+      </div>
+      <div class="right-section">
+        <h2>Plagiarism Detector For Content</h2>
+        <form id="plagiarismForm" enctype="multipart/form-data">
+          <div class="file-upload">
+            <p>Choose a file (.zip, .pdf, .docx, .txt)</p>
+            <input type="file" id="fileInput" accept=".zip,.pdf,.docx,.txt" />
+          </div>
+          <div class="dropdown">
+            <select>
+              <option>Project Contributors</option>
+              <option>Sumit Kumar</option>
+              <option>Anurag Agrwal</option>
+              <option>Sahil Kurrey</option>
+              <option>Rohan Verma</option>
+              <option>Galla Sai</option>
+            </select>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="use_level_4" />
+            <label for="use_level_4"
+              >Use Level 4 (OpenAI based Paraphrasing Detection)
+              <a href="#">(Alpha Mode)</a></label
+            >
+          </div>
+          <button type="submit" class="detect-btn">Detect Plagiarism</button>
+        </form>
+      </div>
+    </main>
+    <section class="promo-banner">
+      <div class="banner-content">
+        <h2>Find the best writer for you in <span>4 Simple Steps</span></h2>
+        <p>
+          Connecting with an expert for writing and editing services is quick
+          and reliable.
+        </p>
+        <a href="order" class="start-btn">Let's Start Now</a>
+      </div>
+      <div class="banner-image">
+        <img
+          src="https://images.emojiterra.com/microsoft/fluent-emoji/15.1/256px/1f916_color.png"
+          alt="Contentguard Character"
+        />
+      </div>
+    </section>
+
+  </body>
+</html>
+<script>
+  const data = {
+    "Demo for plagiarism checker.txt": {
+      std: { similarity: 0, sources: 0 },
+      alpha: { similarity: 7, sources: 2 },
+    },
+    "Final Project Synopsis.docx": {
+      std: { similarity: 3, sources: 1 },
+      alpha: { similarity: 9, sources: 1 },
+    },
+    "Final Project Report.pdf": {
+      std: { similarity: 7, sources: 2 },
+      alpha: { similarity: 15, sources: 2 },
+    },
+  };
+  // Handle file name display
+  document.getElementById("fileInput").addEventListener("change", function () {
+    const fileName = this.files[0]?.name || "No file chosen";
+    const fileDisplay = document.createElement("p");
+    fileDisplay.textContent = `Selected file: ${fileName}`;
+    fileDisplay.style.marginTop = "10px";
+    fileDisplay.style.fontSize = "14px";
+    fileDisplay.style.color = "#666";
+
+    // Remove any previous file name display
+    const existingDisplay = document.querySelector(".file-upload .file-name");
+    if (existingDisplay) existingDisplay.remove();
+
+    // Add the new file name display
+    fileDisplay.classList.add("file-name");
+    document.querySelector(".file-upload").appendChild(fileDisplay);
+  });
+
+  // Handle form submission for plagiarism detection
+  document
+    .getElementById("plagiarismForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Get form elements
+      const fileInput = document.getElementById("fileInput");
+      const useLevel4 = document.getElementById("use_level_4").checked;
+      const detectBtn = document.querySelector(".detect-btn");
+
+      // Check if a file is selected
+      if (!fileInput.files[0]) {
+        alert("Please select a file to check for plagiarism.");
+        return;
+      }
+
+      // Show loading state
+      detectBtn.disabled = true;
+      detectBtn.textContent = "Detecting...";
+
+      // Simulate plagiarism detection with a delay
+      setTimeout(() => {
+        // Mock result
+        const fileName = fileInput.files[0].name;
+        const mockResult = useLevel4
+          ? `Plagiarism Scan Result for ${fileName}:\n- ${data[fileName]["alpha"]["similarity"]}% similarity detected (Level 4: OpenAI Paraphrasing Detection).\n- Potential matches found in ${data[fileName]["alpha"]["sources"]} sources.`
+          : `Plagiarism Scan Result for ${fileName}:\n- ${data[fileName]["std"]["similarity"]}% similarity detected (Standard Mode).\n- Potential matches found in ${data[fileName]["std"]["sources"]} sources.`;
+
+        // Display the result below the form
+        const resultDisplay = document.createElement("div");
+        resultDisplay.className = "result-box";
+        resultDisplay.style.marginTop = "20px";
+        resultDisplay.style.padding = "15px";
+        resultDisplay.style.backgroundColor = "#f9f9f9";
+        resultDisplay.style.borderRadius = "5px";
+        resultDisplay.style.border = "1px solid #ccc";
+        resultDisplay.innerHTML = `<h3>🔍 Plagiarism Scan Result</h3><pre>${mockResult}</pre>`;
+
+        // Remove any previous result
+        const existingResult = document.querySelector(
+          ".right-section .result-box"
+        );
+        if (existingResult) existingResult.remove();
+
+        // Add the new result
+        document.querySelector(".right-section").appendChild(resultDisplay);
+
+        // Reset button state
+        detectBtn.disabled = false;
+        detectBtn.textContent = "Detect Plagiarism";
+
+        // Scroll to the result
+        resultDisplay.scrollIntoView({ behavior: "smooth" });
+      }, 2000); // 2-second delay to simulate processing
+    });
+</script>

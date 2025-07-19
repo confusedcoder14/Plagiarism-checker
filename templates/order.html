@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select Order Type</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+      <!-- Header -->
+      <div class="w-full max-w-4xl flex justify-start mb-6">
+        <div class="flex items-center">
+          <svg
+            class="w-6 h-6 mr-2 text-gray-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-2.067 0-4 1.933-4 4v1h8v-1c0-2.067-1.933-4-4-4z"
+            ></path>
+          </svg>
+          <span class="text-xl font-semibold text-gray-700">Contentguard</span>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="w-full max-w-4xl flex flex-col md:flex-row gap-6">
+        <!-- Left Section: Select Order Type -->
+        <div class="flex-1 bg-white p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">
+            Select your order type
+          </h2>
+          <p class="text-gray-600 mb-6">
+            Knowing your goal allows us to find the best person for the job.
+          </p>
+
+          <!-- Order Type Options -->
+          <div class="space-y-4">
+            <!-- Writing Option -->
+            <div
+              class="flex items-center justify-between p-4 border border-blue-200 rounded-lg bg-blue-50"
+            >
+              <div class="flex items-center">
+                <svg
+                  class="w-6 h-6 mr-3 text-blue-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 5l-7 7 7 7"
+                  ></path>
+                </svg>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-800">Writing</h3>
+                  <p class="text-gray-600">
+                    Get an essay or paper written according to your instructions
+                    by a professional writer.
+                  </p>
+                </div>
+              </div>
+              <span class="text-blue-600 font-semibold">Selected</span>
+            </div>
+
+            <!-- Editing Option -->
+            <div
+              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50"
+            >
+              <div class="flex items-center">
+                <svg
+                  class="w-6 h-6 mr-3 text-blue-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 5h2m-2 4h2m-2 4h2m-2 4h2"
+                  ></path>
+                </svg>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-800">Editing</h3>
+                  <p class="text-gray-600">
+                    Get your paper edited, proofread, or have AI content revised
+                    by a professional editor.
+                  </p>
+                </div>
+              </div>
+              <button
+                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Select
+              </button>
+            </div>
+
+            <!-- Technical Option -->
+            <div
+              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50"
+            >
+              <div class="flex items-center">
+                <svg
+                  class="w-6 h-6 mr-3 text-blue-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  ></path>
+                </svg>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-800">Technical</h3>
+                  <p class="text-gray-600">
+                    Get an expert's help with math problems, data analysis,
+                    coding, labs, accounting, etc.
+                  </p>
+                </div>
+              </div>
+              <button
+                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Select
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Section: Quality Guarantee -->
+        <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-md">
+          <div class="flex items-center mb-4">
+            <svg
+              class="w-6 h-6 mr-2 text-yellow-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-800">
+              100% quality guarantee
+            </h3>
+          </div>
+          <p class="text-gray-600 mb-4">
+            Enjoy professional, stress-free academic help
+          </p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-center">
+              <svg
+                class="w-5 h-5 mr-2 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              Strictly following instructions
+            </li>
+            <li class="flex items-center">
+              <svg
+                class="w-5 h-5 mr-2 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              Adherence to deadlines
+            </li>
+            <li class="flex items-center">
+              <svg
+                class="w-5 h-5 mr-2 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              AI & Plagiarism control
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Next Button -->
+      <div class="w-full max-w-4xl flex justify-center mt-6">
+        <button
+          class="px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
