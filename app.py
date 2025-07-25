@@ -14,8 +14,17 @@ app.config['ALLOWED_EXTENSIONS'] = {'zip', 'pdf', 'docx', 'txt'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        # Simple authentication logic (replace with real user validation)
+        if username == 'admin' and password == 'password':
+            flash('Login successful!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Invalid username or password.', 'error')
     return render_template('login.html')
 
 @app.route('/order')
